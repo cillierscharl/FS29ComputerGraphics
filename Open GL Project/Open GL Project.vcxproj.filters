@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{19be893e-5471-4f24-99a8-887a855dc7ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="letters">
+      <UniqueIdentifier>{996c37af-f774-481a-9fa1-5b584a01669a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -22,23 +28,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\3DCurve.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="letters\lettersLGD.h">
-      <Filter>Header Files</Filter>
+      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="lib\3DPipe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="letters\lettersKCA.h">
-      <Filter>Header Files</Filter>
+      <Filter>Lib</Filter>
     </ClInclude>
     <ClInclude Include="letters\LettersHBI.h">
-      <Filter>Header Files</Filter>
+      <Filter>letters</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="letters\lettersKCA.h">
+      <Filter>letters</Filter>
     </ClInclude>
+    <ClInclude Include="letters\lettersLGD.h">
+      <Filter>letters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -47,23 +51,23 @@
     <ClCompile Include="Open GL Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\3DCurve.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="letters\letterKCA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="letters\lettersLGD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\3DPipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="letters\LettersHBI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\3DCurve.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\3DPipe.cpp">
+      <Filter>Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="letters\letterKCA.cpp">
+      <Filter>letters</Filter>
+    </ClCompile>
+    <ClCompile Include="letters\LettersHBI.cpp">
+      <Filter>letters</Filter>
+    </ClCompile>
+    <ClCompile Include="letters\lettersLGD.cpp">
+      <Filter>letters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
