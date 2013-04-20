@@ -3,7 +3,7 @@
 // lettersLGD - Code to produce the letters LGD
 // 
 // Author: Charl Cilliers
-// Date:   23-03-2012
+// Date:   23-03-2013
 //
 ////////////////////////////////////////////////////////////////
 

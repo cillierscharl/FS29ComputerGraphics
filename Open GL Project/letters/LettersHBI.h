@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////
 //
-// lettersLGD - Code to produce the letters LGD
+// lettersHBI - Code to produce the letters HBI
 // 
-// Author: Charl Cilliers
+// Author: Lebohang Danster
 // Date:   23-03-2013
 //
 ////////////////////////////////////////////////////////////////
 
-extern void drawLShape();
+extern void drawHShape();
 
-extern void drawGShape();
+extern void drawBShape();
 
-extern void drawDShape();
+extern void drawIShape();

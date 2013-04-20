@@ -2,14 +2,16 @@
 //
 
 #include "stdafx.h"
-#include <GL/glut.h>
-#include "3DCurve.h"
-#include "lettersLGD.h"
-#include "3DPipe.h"
 
+enum scene {
+	drawDannyIntials = 0,
+	drawCharlInitials = 1,
+	drawLeboInitials = 2,
+	drawAnimal = 4,
+};
 
+#pragma region Local Variables
 
-//======================================================
 float pitch = 0.0f;
 float yaw = 0.0f;
 float zoomFactor = 10.0;
@@ -24,170 +26,33 @@ int currentTime;
 int previousTime;
 float fps;
 
-void calculateFPS()
-{
-    //  Increase frame count
-    frameCount++;
- 
-    //  Get the number of milliseconds since glutInit called
-    //  (or first call to glutGet(GLUT ELAPSED TIME)).
-    currentTime = glutGet(GLUT_ELAPSED_TIME);
- 
-    //  Calculate time passed
-    int timeInterval = currentTime - previousTime;
- 
-    if(timeInterval > 1000)
-    {
-        //  calculate the number of frames per second
-        fps = frameCount / (timeInterval / 1000.0f);
+scene displayScene;
 
+#pragma endregion
 
-		printf("FPS %f \n", fps);
+#pragma region Function Declarations
 
+void displayCallBack(void);
+void displayFrameCount(void);
+void drawFloor(void);
+void drawScene(void);
+void idleCallBack(void);
+void incrementYaw(void);
+void displayCallBack(void);
+void rotateView(bool r);
+void reshapeCallBack(int w, int h);
+void executeViewControl(float y, float p);
+void keyboardCallBack(unsigned char key, int x, int y);
+void reshapeCallBack(int w, int h);
 
+#pragma endregion
 
- 
-        //  Set time
-        previousTime = currentTime;
- 
-        //  Reset frame count
-        frameCount = 0;
-    }
-}
-
-void drawFloor(){
-	glBegin(GL_QUADS);
-		glColor3f(0,0,0);
-		glVertex3f(-20000,-2,20000);
-		glVertex3f(20000,-2,20000);
-		glVertex3f(20000,-2,-20000);
-		glVertex3f(-20000,-2,-20000);
-	glEnd();
-}
-
-void drawSomething(){
-	//glTranslatef(-3,0,0);
-	//drawLShape();
-	//glTranslatef(3,0,0);
-	//drawHShape();
-	//glTranslatef(3,0,0);
-	//drawGShape();
-	//drawFloor();
-
-
-
-	for(int i = 120; i >= -120 ; i -= 10){
-		glPushMatrix();
-			glRotatef(90,0,0,1);
-			glRotatef(i,0,1,0);
-			glTranslatef(2,0,0);
-			glScalef(1,3,0.1);
-			drawDShape();
-		glPopMatrix();
-	}
-
-	glPushMatrix();
-		glTranslatef(-3,-1,1);
-		glScalef(1,1,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(-3,-1,-1);
-		glScalef(1,1,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	//front arms
-
-	glPushMatrix();
-		glTranslatef(3,-0.5,-1);
-		glScalef(0.1,0.8,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(3,-0.5,1);
-		glScalef(0.1,0.8,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	calculateFPS();
-
-}
-
-void incrementYaw(){
-	//pitch=pitch+.25;
-	yaw=yaw+.25;
-}
-
-void idleCallBack (){
-	if(rotating) incrementYaw();
-    glutPostRedisplay();
-}
-
-void rotateView(bool r){
-	rotating = r;
-	if (moving | rotating) glutIdleFunc(idleCallBack); else glutIdleFunc(NULL);
-}
-
-
-void keyboardCallBack(unsigned char key, int x, int y) {
-	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
-	switch(key)
-	{
-	case 'r': 
-		rotating= !rotating;
-		rotateView(rotating);
-	break;
-	case 'R':
-        //resetView();
-	break;
-	case 'm': 
-		//moving= !moving;
-		//moveView(moving);
-	break;
-	case 'z': 
-		if (zoomFactor > 1) zoomFactor = zoomFactor - 1;
-	break;
-	case 'Z':
-        zoomFactor = zoomFactor + 1;
-	break;
-	default:
-		printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
-	}
-
-	glutPostRedisplay();
-}
-
-void executeViewControl (float y, float p){
-	glRotatef(y, 0.0f, 1.0f, 0.0f); //yaw about y-axis
-    glRotatef(p, 1.0f, 0.0f, 0.0f); //pitch about x-axis 
-}
-
-void displayCallBack() {
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	executeViewControl (yaw, pitch);
-	drawSomething();
-	glutSwapBuffers();
-}
-
-void reshapeCallBack(int w, int h) 
-{
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-	if (w == 0 || h == 0) return;
-    if (w <= h) glOrtho(-zoomFactor, zoomFactor, -zoomFactor * (GLfloat) h / (GLfloat) w, zoomFactor * (GLfloat) h / (GLfloat) w, -20.0, 20.0);
-    else        glOrtho(-zoomFactor* (GLfloat) w / (GLfloat) h, zoomFactor * (GLfloat) w / (GLfloat) h, -zoomFactor, zoomFactor, -20.0, 20.0);
-    glMatrixMode(GL_MODELVIEW);
-}
 
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
+	
+	displayScene = drawAnimal;
 
 	// Create and name window
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // Need both double buffering and z buffer
@@ -222,4 +87,161 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+
+/**
+	Outputs the frame count to the console
+*/
+void displayFrameCount()
+{
+    //  Increase frame count
+    frameCount++;
+ 
+    //  Get the number of milliseconds since glutInit called
+    //  (or first call to glutGet(GLUT ELAPSED TIME)).
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+ 
+    //  Calculate time passed
+    int timeInterval = currentTime - previousTime;
+ 
+    if(timeInterval > 1000)
+    {
+        //  calculate the number of frames per second
+        fps = frameCount / (timeInterval / 1000.0f);
+
+		// Print frame stats to the console
+		printf("FPS %f \n", fps);
+
+        //  Set time
+        previousTime = currentTime;
+ 
+        //  Reset frame count
+        frameCount = 0;
+    }
+}
+
+/**
+	Draws the floor of the scene
+*/
+void drawFloor() {
+	glBegin(GL_QUADS);
+		glColor3f(0,0,0);
+		glVertex3f(-20000,-2,20000);
+		glVertex3f(20000,-2,20000);
+		glVertex3f(20000,-2,-20000);
+		glVertex3f(-20000,-2,-20000);
+	glEnd();
+}
+
+/**
+	Draws the scene
+*/
+void drawScene(){
+
+	switch (displayScene)
+	{
+	case drawDannyIntials:
+		drawDannyScene();
+		break;
+
+	case drawCharlInitials:
+		drawCharlScene();
+		break;
+
+	case drawLeboInitials:
+		drawLeboScene();
+		break;
+
+	case drawAnimal:
+	default:
+		drawAnimalScene();
+		break;
+	}
+	displayFrameCount();
+}
+
+void incrementYaw(){
+	//pitch=pitch+.25;
+	yaw=yaw+.25;
+}
+
+void idleCallBack () {
+	if(rotating) incrementYaw();
+    glutPostRedisplay();
+}
+
+void rotateView(bool r) {
+	rotating = r;
+	if (moving | rotating) glutIdleFunc(idleCallBack); else glutIdleFunc(NULL);
+}
+
+void keyboardCallBack(unsigned char key, int x, int y) {
+	printf("Keyboard call back: key=%c, x=%d, y=%d\n", key, x, y);
+	switch(key)
+	{
+	case 'a':
+	case 'A':
+		displayScene = drawAnimal;
+		break;
+	case 's':
+	case 'S':
+		displayScene = drawDannyIntials;
+		break;
+	case 'd':
+	case 'D':
+		displayScene = drawCharlInitials;
+		break;
+	case 'f':
+	case 'F':
+		displayScene = drawLeboInitials;
+		break;
+	case 'r': 
+		rotating= !rotating;
+		rotateView(rotating);
+	break;
+	case 'R':
+        //resetView();
+	break;
+	case 'm': 
+		//moving= !moving;
+		//moveView(moving);
+	break;
+	case 'z': 
+		if (zoomFactor > 1) zoomFactor = zoomFactor - 1;
+	break;
+	case 'Z':
+        zoomFactor = zoomFactor + 1;
+	break;
+	default:
+		printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
+	}
+
+	glutPostRedisplay();
+}
+
+void executeViewControl (float y, float p) {
+	glRotatef(y, 0.0f, 1.0f, 0.0f); //yaw about y-axis
+    glRotatef(p, 1.0f, 0.0f, 0.0f); //pitch about x-axis 
+}
+
+void displayCallBack() {
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	executeViewControl (yaw, pitch);
+	drawScene();
+	glutSwapBuffers();
+}
+
+void reshapeCallBack(int w, int h) 
+{
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+	if (w == 0 || h == 0) return;
+    if (w <= h) glOrtho(-zoomFactor, zoomFactor, -zoomFactor * (GLfloat) h / (GLfloat) w, zoomFactor * (GLfloat) h / (GLfloat) w, -20.0, 20.0);
+    else        glOrtho(-zoomFactor* (GLfloat) w / (GLfloat) h, zoomFactor * (GLfloat) w / (GLfloat) h, -zoomFactor, zoomFactor, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+
 

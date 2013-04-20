@@ -79,16 +79,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="letters\letterKCA.h" />
+    <ClInclude Include="letters\LettersHBI.h" />
+    <ClInclude Include="letters\lettersKCA.h" />
     <ClInclude Include="letters\lettersLGD.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="lib\3DCurve.h" />
     <ClInclude Include="lib\3DPipe.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="letters\LettersHBI.cpp" />
     <ClCompile Include="letters\letterKCA.cpp" />
     <ClCompile Include="letters\lettersLGD.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="lib\3DCurve.cpp" />
     <ClCompile Include="lib\3DPipe.cpp" />
     <ClCompile Include="Open GL Project.cpp" />

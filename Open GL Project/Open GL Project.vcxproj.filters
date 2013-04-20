@@ -24,13 +24,19 @@
     <ClInclude Include="lib\3DCurve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="letters\letterKCA.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="letters\lettersLGD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\3DPipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="letters\lettersKCA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="letters\LettersHBI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -51,6 +57,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\3DPipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="letters\LettersHBI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

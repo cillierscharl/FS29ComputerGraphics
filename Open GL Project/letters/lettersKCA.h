@@ -1,0 +1,14 @@
+////////////////////////////////////////////////////////////////
+//
+// lettersKCA - Code to produce the letters KCA
+// 
+// Author: Lebohang Danster
+// Date:   27-03-2013
+//
+////////////////////////////////////////////////////////////////
+
+extern void drawKShape();
+
+extern void drawCShape();
+
+extern void drawAShape();
