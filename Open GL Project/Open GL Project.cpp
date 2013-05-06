@@ -44,6 +44,10 @@ void reshapeCallBack(int w, int h);
 void executeViewControl(float y, float p);
 void keyboardCallBack(unsigned char key, int x, int y);
 void reshapeCallBack(int w, int h);
+// Animation State Containers
+float rotation = 0;
+float lowerLegRotation = 0;
+int direction = 1;
 
 #pragma endregion
 
@@ -62,7 +66,7 @@ int main(int argc, char* argv[])
 	// Add Display & Mouse CallBacks
 	glutReshapeFunc(reshapeCallBack);
 	glutDisplayFunc(displayCallBack);
-	//glutIdleFunc(NULL); // Starts the Idle Function as having no routine attached to it. This is modified in rotateView()
+	//glutIdleFunc(idleCallBack); // Starts the Idle Function as having no routine attached to it. This is modified in rotateView()
 	//glutMouseFunc(mouseClickCallBack);
 	//glutMotionFunc(mouseMotionCallBack);
 	glutKeyboardFunc(keyboardCallBack);
@@ -153,7 +157,7 @@ void drawScene(){
 
 	case drawAnimal:
 	default:
-		drawAnimalScene();
+		drawAnimalScene(rotation,lowerLegRotation);
 		break;
 	}
 	displayFrameCount();
@@ -161,11 +165,40 @@ void drawScene(){
 
 void incrementYaw(){
 	//pitch=pitch+.25;
-	yaw=yaw+.25;
+	yaw=yaw+.8;
 }
+
+
 
 void idleCallBack () {
 	if(rotating) incrementYaw();
+
+	//
+	if(direction == 1){
+		if(rotation < 30){
+			rotation += 1;
+		}else {
+			direction = 0;
+		}
+		if(lowerLegRotation < 2){
+			lowerLegRotation++;
+		}
+		
+		
+	}else {
+		if(rotation > -30){
+			rotation -= 1;
+		}else {
+			direction = 1;
+		}
+
+		if(lowerLegRotation > -20){
+			lowerLegRotation--;
+		}
+		
+	}
+	//
+
     glutPostRedisplay();
 }
 
@@ -212,7 +245,7 @@ void keyboardCallBack(unsigned char key, int x, int y) {
         zoomFactor = zoomFactor + 1;
 	break;
 	default:
-		printf("Press b - back fill; f - front fill; l - line; i - increment; or d - decrement; r - rotate; R - reset view\n");
+		printf("Press a - Draw Armadillo s - Draw Daniel's Initials f - Draw Lebo's Initials d - Draw Charl's Initials r - rotate; R - reset view\n");
 	}
 
 	glutPostRedisplay();

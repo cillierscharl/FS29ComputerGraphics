@@ -13,6 +13,8 @@
 #include "lettersHBI.h"
 #include "lettersKCA.h"
 
+#include "stdafx.h"
+
 #pragma region Function Declarations
 
 void drawD(float x, float y);
@@ -58,7 +60,66 @@ void drawLeboScene() {
 	drawB(coordinates[5][0], coordinates[5][1]);
 }
 
-void drawAnimalScene() {
+void drawLeg(int sections,int footSections,float legRotation, float lowerLegRotation, float scale){
+	glPushMatrix();
+		int halfSections = sections / 2;
+
+		glRotatef(legRotation,0,0,1);
+		glScalef(scale,scale,scale);
+
+		for(int i = 0 ; i < halfSections + 1 ; i++){
+			glPushMatrix();
+				glTranslatef(0,i * -3,0);
+				drawKShape();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(0.6,i * -3,0);
+				glRotatef(180,0,1,0);
+				drawKShape();
+			glPopMatrix();
+		}
+
+		glRotatef(lowerLegRotation,0,0,1);
+
+		glTranslatef(0,-3,0);
+		for(int i = halfSections ; i < sections + 1 ; i++){
+
+			glPushMatrix();
+				glTranslatef(0,i * -3,0);
+				drawKShape();
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(0.6,i * -3,0);
+				glRotatef(180,0,1,0);
+				drawKShape();
+			glPopMatrix();
+		}
+
+	glPopMatrix();
+
+	glRotatef(lowerLegRotation,0,0,1);
+
+	glPushMatrix();
+		glRotatef(legRotation,0,0,1);	
+		glScalef(scale,scale,scale);
+		for(int i = 1 ; i < footSections + 1; i++){
+			glPushMatrix();
+				glTranslatef(0,(sections + i) * -3,0);
+				glRotatef(50,0,0,1);
+				drawKShape();
+			glPopMatrix();
+			glPushMatrix();
+					glTranslatef(0.6,(sections + i) * -3,0);
+					glRotatef(180,0,1,0);
+					glRotatef(50,0,0,1);
+					drawKShape();
+			glPopMatrix();
+		}
+	glPopMatrix();
+}
+
+
+void drawBody(){
 	for(int i = 120; i >= -120 ; i -= 10){
 		glPushMatrix();
 			glRotatef(90,0,0,1);
@@ -68,33 +129,85 @@ void drawAnimalScene() {
 			drawDShape();
 		glPopMatrix();
 	}
+}
 
+void drawArms(int legRotation, int lowerLegRotation){
 	glPushMatrix();
-		glTranslatef(-3,-1,1);
-		glScalef(1,1,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(-3,-1,-1);
-		glScalef(1,1,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	//front arms
-
-	glPushMatrix();
-		glTranslatef(3,-0.5,-1);
-		glScalef(0.1,0.8,0.3);
-		drawLShape();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(3,-0.5,1);
-		glScalef(0.1,0.8,0.3);
-		drawLShape();
+		glPushMatrix();
+			glTranslatef(4,-1,-1);
+			drawLeg(2,1,-legRotation,-lowerLegRotation,0.3);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(4,-1,1);			
+			drawLeg(2,1,legRotation,lowerLegRotation,0.3);
+		glPopMatrix();
 	glPopMatrix();
 }
+
+void drawLegs(int legRotation, int lowerLegRotation){
+	glPushMatrix();
+		glTranslatef(-5,-1,-1);
+		drawLeg(2,1,-legRotation,-lowerLegRotation,0.3);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(-5,-1,1);
+		drawLeg(2,1,legRotation,lowerLegRotation,0.3);
+	glPopMatrix();
+}
+
+void drawMouth(){
+	glPushMatrix();
+		glTranslatef(6,0,0);
+		glRotatef(-90,0,0,1);
+		glRotatef(-20,0,0,1);
+		for(int i = 0 ; i < 360; i+= 10 ){
+			glPushMatrix();
+				glRotatef(i,0,1,0);
+				glScalef(1,1.5,.1);
+				drawAShape();
+			glPopMatrix();
+		}
+	glPopMatrix();
+}
+
+void drawTail(){
+	glPushMatrix();
+		glTranslatef(-15,-4,0);
+		glRotatef(-90,0,0,1);
+		glRotatef(270,1,0,0);
+		for(float i = 1 ; i < 10 ; i += 1){
+			glPushMatrix();
+				glTranslatef(0,0,i);
+				glTranslatef((i/2) * -1,0,0);
+				glRotatef(-15,0,1,0);
+				printf("Count %f \n", i/100);
+				glScalef( i / 10, i / 10,1);
+				drawCShape();
+			glPopMatrix();
+		}
+	glPopMatrix();
+}
+
+void drawEyes(){
+	glPushMatrix();
+		glTranslatef(7,0,1.7);
+		glScalef(.2,.2,.1);
+		drawGShape();
+
+	glPopMatrix();
+}
+
+
+void drawAnimalScene(float legRotation, float lowerLegRotation) {
+
+	drawBody();
+	drawLegs(legRotation,lowerLegRotation);
+	drawArms(legRotation,lowerLegRotation);
+	drawMouth();
+	drawTail();
+	drawEyes();
+}
+
 
 #pragma region Scene Draw Functions
 

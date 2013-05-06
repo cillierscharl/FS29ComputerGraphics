@@ -13,4 +13,4 @@ extern void drawCharlScene(void);
 
 extern void drawLeboScene(void);
 
-extern void drawAnimalScene(void);
+extern void drawAnimalScene(float legRotation, float lowerLegRotation);

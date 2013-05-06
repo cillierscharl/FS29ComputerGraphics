@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////
 
-#include <glut.h>
+#include <GL/glut.h>
 #include "3DCurve.h"
 #include "3DPipe.h"
 
