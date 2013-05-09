@@ -180,7 +180,6 @@ void drawTail(){
 				glTranslatef(0,0,i);
 				glTranslatef((i/2) * -1,0,0);
 				glRotatef(-15,0,1,0);
-				printf("Count %f \n", i/100);
 				glScalef( i / 10, i / 10,1);
 				drawCShape();
 			glPopMatrix();
@@ -191,23 +190,71 @@ void drawTail(){
 void drawEyes(){
 	glPushMatrix();
 		glTranslatef(7,0,1.7);
+		glRotatef(-90,0,0,1);
+		glRotatef(-20,1,0,0);
 		glScalef(.2,.2,.1);
 		drawGShape();
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(7,0,-1.7);
+		glRotatef(-90,0,0,1);
+		glRotatef(20,1,0,0);
+		glScalef(.2,.2,.1);
+		drawGShape();
+	glPopMatrix();
+}
+
+void drawEars(){
+	glPushMatrix();
+
+		glScalef(.1,.5,.5);
+		glTranslatef(60,7,0);
+
+		glRotatef(30,1,0,0);
+		glRotatef(90,0,1,0);
+		
+		glPushMatrix();
+			glTranslatef(-3,-1.5,0);
+			glRotatef(-30,0,0,1);
+			drawIShape();
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(30,0,0,1);
+			drawIShape();
+		glPopMatrix();
+
+	glPopMatrix();
+	glPushMatrix();
+
+		glScalef(.1,.5,.5);
+		glTranslatef(60,4,-5);
+
+		glRotatef(-30,1,0,0);
+		glRotatef(90,0,1,0);
+		
+		glPushMatrix();
+			glTranslatef(-3,-1.5,0);
+			glRotatef(-30,0,0,1);
+			drawIShape();
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef(30,0,0,1);
+			drawIShape();
+		glPopMatrix();
 
 	glPopMatrix();
 }
 
 
 void drawAnimalScene(float legRotation, float lowerLegRotation) {
-
 	drawBody();
 	drawLegs(legRotation,lowerLegRotation);
 	drawArms(legRotation,lowerLegRotation);
 	drawMouth();
 	drawTail();
 	drawEyes();
+	drawEars();
 }
-
 
 #pragma region Scene Draw Functions
 

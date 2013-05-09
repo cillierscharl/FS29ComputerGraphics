@@ -27,22 +27,22 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="lib\3DCurve.h">
-      <Filter>Lib</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\3DPipe.h">
-      <Filter>Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="letters\LettersHBI.h">
-      <Filter>letters</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="letters\lettersKCA.h">
-      <Filter>letters</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="letters\lettersLGD.h">
-      <Filter>letters</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="letters\LettersHBI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
